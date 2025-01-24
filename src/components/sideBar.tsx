@@ -20,6 +20,7 @@ export default function SideBar({ open }: SideBarProps) {
         bottom: 0,
         scrollbarWidth: 'thin',
         scrollbarGutter: 'stable',
+        borderRight: '1px solid #ccc',
     };
     return (
         <Sider

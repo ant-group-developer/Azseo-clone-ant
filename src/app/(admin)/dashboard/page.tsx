@@ -2,15 +2,14 @@
 import TitlePage from '@/components/titleHeader';
 import AllOrders from '@/modules/Dashboard/components/AllOrders';
 import DataTable from '@/modules/Dashboard/components/DataTable';
-import { useFetchInforOrderMoney } from '@/modules/Dashboard/hooks/useFetchInforOrderMoney';
 import { Box } from '@mui/material';
 
 export default function Statistic() {
-    const {
-        data: inforOrderMoneyData,
-        // isLoading: isLoadingInforOrderMoney,
-        // isError: isErrorInforOrderMoney
-    } = useFetchInforOrderMoney();
+    // const {
+    //     data: inforOrderMoneyData,
+    //     // isLoading: isLoadingInforOrderMoney,
+    //     // isError: isErrorInforOrderMoney
+    // } = useFetchInforOrderMoney();
 
     return (
         <Box textAlign="center" p="2.5rem 1.75rem">

@@ -5,6 +5,9 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+    --secondTextColor: #3f4254;
+    --sidebar-background: 0 0% 98%;
+    --title-color: #3f4254;
 }
 
 @media (prefers-color-scheme: dark) {

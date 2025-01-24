@@ -38,14 +38,18 @@ export default function AppSearch({
             onChange={(e) => debounceSearchChange(e)}
             placeholder="Enter search"
             size="small"
-            sx={{ bgcolor: 'white' }}
+            sx={{
+                bgcolor: 'white',
+                '.MuiOutlinedInput-root': { height: '32px' },
+            }}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
-                        <IconButton disableRipple onClick={handleClear}>
+                        <IconButton onClick={handleClear}>
                             <ClearIcon
                                 sx={{
                                     visibility: value ? 'visible' : 'hidden',
+                                    fontSize: '14px',
                                 }}
                             />
                         </IconButton>

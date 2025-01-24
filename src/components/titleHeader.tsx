@@ -1,10 +1,17 @@
-import { Typography } from '@mui/material'
-import React from 'react'
+import Title from 'antd/es/typography/Title';
 
 export default function TitlePage({ children }: { children: string }) {
-  return (
-    <Typography variant='h4' color='#3f4254' marginBottom='1.5rem'>
-      {children}
-    </Typography>
-  )
+    return (
+        <Title
+            className="text-4xl font-bold"
+            style={{
+                fontSize: '2.5rem',
+                fontWeight: '700',
+                color: 'var(--title-color)',
+            }}
+            level={2}
+        >
+            {children}
+        </Title>
+    );
 }

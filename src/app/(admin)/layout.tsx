@@ -1,49 +1,40 @@
 'use client';
 
-import { Layout, Menu } from 'antd';
-import Title from 'antd/es/typography/Title';
-import { Upload, User, Video } from 'lucide-react';
-import { PropsWithChildren } from 'react';
+import SideBar from '@/components/sideBar';
+import { Button, Layout } from 'antd';
+import { Header } from 'antd/es/layout/layout';
+import { PanelLeftClose, PanelRightClose } from 'lucide-react';
+import { PropsWithChildren, useState } from 'react';
+
 export default function AdminLayout({ children }: PropsWithChildren) {
-    const { Sider, Content } = Layout;
+    const { Content } = Layout;
+    const [collapsed, setCollapsed] = useState(true);
     return (
-        <Layout>
-            <Sider
-                theme="light"
-                trigger={null}
-                collapsible
-                collapsed={false}
-                width={'15%'}
-            >
-                <Title level={4}>Hào</Title>
-                <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    items={[
-                        {
-                            key: '0',
-                            icon: <User size={18} />,
-                            label: 'Managerment',
-                        },
-                        {
-                            key: '1',
-                            icon: <User size={18} />,
-                            label: 'nav 1',
-                        },
-                        {
-                            key: '2',
-                            icon: <Video size={18} />,
-                            label: 'nav 2',
-                        },
-                        {
-                            key: '3',
-                            icon: <Upload size={18} />,
-                            label: 'nav 3',
-                        },
-                    ]}
-                />
-            </Sider>
-            <Content className="w-full">{children}</Content>
+        <Layout hasSider={true}>
+            <SideBar open={!collapsed} />
+            <Layout>
+                <Header
+                    style={{
+                        width: '100%',
+                        backgroundColor: 'white',
+                        padding: 0,
+                    }}
+                >
+                    <Button
+                        className="ml-4"
+                        type="text"
+                        icon={
+                            collapsed ? (
+                                <PanelRightClose size={18} />
+                            ) : (
+                                <PanelLeftClose size={18} />
+                            )
+                        }
+                        onClick={() => setCollapsed(!collapsed)}
+                    />
+                </Header>
+                <Content className="w-full bg-white">{children}</Content>
+            </Layout>
         </Layout>
     );
 }

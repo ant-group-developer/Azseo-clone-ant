@@ -88,7 +88,7 @@ export default function DateFilter({
             <Select
                 {...props}
                 size="small"
-                sx={{ bgcolor: 'white' }}
+                sx={{ bgcolor: 'white', height: '32px' }}
                 onChange={handleChange}
                 displayEmpty
                 IconComponent={() => (
@@ -104,7 +104,7 @@ export default function DateFilter({
                             zIndex: 1,
                         }}
                     >
-                        {hovering ? <X /> : <ArrowDropDownIcon />}
+                        {hovering ? <X size={14} /> : <ArrowDropDownIcon />}
                     </IconButton>
                 )}
             >

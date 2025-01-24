@@ -41,7 +41,7 @@ export default function ProviderFilter({
                 value={value}
                 {...props}
                 size="small"
-                sx={{ bgcolor: 'white' }}
+                sx={{ bgcolor: 'white', height: '32px' }}
                 onChange={handleChange}
                 displayEmpty
                 IconComponent={() => (
@@ -57,7 +57,7 @@ export default function ProviderFilter({
                             zIndex: 1,
                         }}
                     >
-                        {hovering ? <X /> : <ArrowDropDownIcon />}
+                        {hovering ? <X size={14} /> : <ArrowDropDownIcon />}
                     </IconButton>
                 )}
             >

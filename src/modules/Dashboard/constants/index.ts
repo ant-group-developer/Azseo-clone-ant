@@ -1,6 +1,7 @@
 import { LOCALE } from '@/enums/common';
-import { GridColDef } from '@mui/x-data-grid';
-import { DataFilterParams } from '../types';
+import { formatCurrency } from '@/helper';
+import { ColumnType } from 'antd/es/table';
+import { DataFilterParams, ServiceStatistic } from '../types';
 
 export const OFFSET_DEFAULT = 0;
 export const LIMIT_DEFAULT = 80;
@@ -10,93 +11,71 @@ export const defaultFilterParam: DataFilterParams = {
     // limit: LIMIT_DEFAULT,
 };
 
-export const columns: GridColDef[] = [
+export const columns: ColumnType<ServiceStatistic>[] = [
     {
-        field: 'ordinalNumber',
-        headerName: 'No.',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 0.5,
+        dataIndex: 'service_id',
+        title: 'ID',
+        key: 'service_id',
     },
     {
-        field: 'id',
-        headerName: 'ID',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 0.5,
+        dataIndex: 'service_name',
+        title: 'Service Name',
+        key: 'service_name',
     },
     {
-        field: 'services',
-        headerName: 'Services',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 2,
+        dataIndex: 'categories_name',
+        title: 'Category',
+        key: 'categories_name',
     },
     {
-        field: 'category',
-        headerName: 'Category',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'provider_name',
+        title: 'Provider',
+        key: 'provider_name',
     },
     {
-        field: 'provider',
-        headerName: 'Provider',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'service_initial_rate',
+        title: 'Undiscounted Price',
+        key: 'service_initial_rate',
+        render: (value: string) => formatCurrency(Number(value)), // Định dạng tiền tệ
     },
     {
-        field: 'undiscountedPrice',
-        headerName: 'Undiscounted Price',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'service_rate',
+        title: 'Rate Per 1000 Original',
+        key: 'service_rate',
+        render: (value: string) => formatCurrency(Number(value)), // Định dạng tiền tệ
     },
     {
-        field: 'ratePer1000Original',
-        headerName: 'Rate Per 1000 Original',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'service_ratio',
+        title: 'Ratio',
+        key: 'service_ratio',
+        render: (value: number) => `${value}%`, // Thêm ký hiệu %
     },
     {
-        field: 'ratio',
-        headerName: 'Ratio',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'service_level',
+        title: 'Level',
+        key: 'service_level',
     },
     {
-        field: 'level',
-        headerName: 'Level',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'service_status',
+        title: 'Status',
+        key: 'service_status',
+        render: (value: number) =>
+            value === 1 ? 'ACTIVE' : value === 2 ? 'BLOCKED' : 'REMOVED', // Hiển thị trạng thái
     },
     {
-        field: 'status',
-        headerName: 'Status',
-        sortable: false,
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'totalQuantity',
+        title: 'Quantity',
+        key: 'totalQuantity',
     },
     {
-        field: 'quantity',
-        headerName: 'Quantity',
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'totalCountOfServiceUsage',
+        title: 'Usage',
+        key: 'totalCountOfServiceUsage',
     },
     {
-        field: 'usage',
-        headerName: 'Usage',
-        disableColumnMenu: true,
-        flex: 1,
-    },
-    {
-        field: 'revenue',
-        headerName: 'Revenue',
-        disableColumnMenu: true,
-        flex: 1,
+        dataIndex: 'totalMoney',
+        title: 'Revenue',
+        key: 'totalMoney',
+        render: (value: number) => formatCurrency(value), // Định dạng tiền tệ
     },
 ];

@@ -4,13 +4,13 @@ import { Props } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Box,
-    Button,
     IconButton,
     Modal,
     TextField,
     Typography,
     useTheme,
 } from '@mui/material';
+import { Button } from 'antd';
 import { X } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { infer as Infer, z } from 'zod';
@@ -162,18 +162,10 @@ export default function CreateUploadPlatForm(props: Props) {
                                 gap={2}
                                 mt={2}
                             >
-                                <Button
-                                    onClick={closeModal}
-                                    variant="outlined"
-                                    sx={{ width: '10%' }}
-                                >
+                                <Button onClick={closeModal} type="default">
                                     Cancel
                                 </Button>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    sx={{ width: '10%' }}
-                                >
+                                <Button type="primary">
                                     {dataEdit?.id ? ' Update' : 'Create'}
                                 </Button>
                             </Box>

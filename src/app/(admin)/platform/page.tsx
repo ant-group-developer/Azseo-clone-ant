@@ -10,7 +10,8 @@ import { defaultFilterParam } from '@/modules/Dashboard/constants';
 import PlatFormTable from '@/modules/Platform/components/PlatFormTable';
 import { PLATFORM_MODAL } from '@/modules/Platform/enums';
 import usePlatform from '@/modules/Platform/hooks/usePlatform';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
+import { Button } from 'antd';
 
 export default function PlatForm() {
     const { dataFilter, onSearch } = useFilter(defaultFilterParam);
@@ -29,7 +30,7 @@ export default function PlatForm() {
                 />
                 <Button
                     onClick={() => openModal(PLATFORM_MODAL.CREATE)}
-                    variant="contained"
+                    type="primary"
                 >
                     Create
                 </Button>

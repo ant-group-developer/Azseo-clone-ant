@@ -1,7 +1,8 @@
 'use client';
 import { ProgressBar } from '@/components/progressBar';
 import ReactQueryClientProvider from '@/providers/QueryClientProvider';
-import { config } from '@/style/theme';
+import { configTheme } from '@/style/theme';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -22,16 +23,18 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={` ${inter.className} ${boston.variable} antialiased`}
+                className={`${inter.className} ${boston.variable} antialiased`}
             >
-                <ConfigProvider theme={config}>
-                    <Suspense fallback={null}>
-                        <ReactQueryClientProvider>
-                            {children}
-                        </ReactQueryClientProvider>
-                    </Suspense>
-                </ConfigProvider>
-                <ProgressBar />
+                <AntdRegistry>
+                    <ConfigProvider theme={configTheme}>
+                        <Suspense fallback={null}>
+                            <ReactQueryClientProvider>
+                                {children}
+                            </ReactQueryClientProvider>
+                        </Suspense>
+                    </ConfigProvider>
+                    <ProgressBar />
+                </AntdRegistry>
             </body>
         </html>
     );

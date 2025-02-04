@@ -1,17 +1,7 @@
 import { UseFilterProps } from '@/hooks/useFilter';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {
-    FormControl,
-    IconButton,
-    ListSubheader,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
-    SelectProps,
-} from '@mui/material';
+import { SelectProps } from '@mui/material';
+import { Select } from 'antd';
 import dayjs from 'dayjs';
-import { X } from 'lucide-react';
-import { useState } from 'react';
 import { DataFilterParams } from '../types';
 
 interface Option {
@@ -25,11 +15,7 @@ type DateFilterProps = Pick<
 > &
     SelectProps<string> & {};
 
-export default function DateFilter({
-    onChangeFilter,
-    ...props
-}: DateFilterProps) {
-    const [hovering, setHovering] = useState<boolean>(false);
+export default function DateFilter({ onChangeFilter, value }: DateFilterProps) {
     // Hàm tạo danh sách 6 tháng gần nhất
     const getLastSixMonths = (): Option[] => {
         const months: Option[] = [];
@@ -73,61 +59,34 @@ export default function DateFilter({
     const lastSixMonths = getLastSixMonths();
     const lastThreeYears = getLastThreeYears();
 
-    const handleChange = (event: SelectChangeEvent<string>) => {
-        const value = event.target.value as string;
-        const [startDate, endDate] = JSON.parse(value);
-        onChangeFilter({ startDate, endDate });
-    };
-
-    const clearSelection = () => {
-        onChangeFilter({ startDate: '', endDate: '' });
+    const handleChange = (value: string) => {
+        if (value) {
+            const [startDate, endDate] = JSON.parse(value);
+            onChangeFilter({ startDate, endDate });
+        } else {
+            onChangeFilter({ startDate: '', endDate: '' });
+        }
     };
 
     return (
-        <FormControl sx={{ minWidth: 200 }}>
-            <Select
-                {...props}
-                size="small"
-                sx={{ bgcolor: 'white', height: '32px' }}
-                onChange={handleChange}
-                displayEmpty
-                IconComponent={() => (
-                    <IconButton
-                        onMouseEnter={() => setHovering(true)}
-                        onMouseLeave={() => setHovering(false)}
-                        onClick={clearSelection}
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: 8,
-                            transform: 'translateY(-50%)',
-                            zIndex: 1,
-                        }}
-                    >
-                        {hovering ? <X size={14} /> : <ArrowDropDownIcon />}
-                    </IconButton>
-                )}
-            >
-                <MenuItem value="" disabled>
-                    <span>Select Date</span>
-                </MenuItem>
-                <ListSubheader sx={{ fontWeight: 'bold' }}>
-                    Last 6 Months
-                </ListSubheader>
-                {lastSixMonths.map((month, index) => (
-                    <MenuItem key={`month-${index}`} value={month.value}>
-                        {month.label}
-                    </MenuItem>
-                ))}
-                <ListSubheader sx={{ fontWeight: 'bold' }}>
-                    Last 3 Years
-                </ListSubheader>
-                {lastThreeYears.map((year, index) => (
-                    <MenuItem key={`year-${index}`} value={year.value}>
-                        {year.label}
-                    </MenuItem>
-                ))}
-            </Select>
-        </FormControl>
+        <Select
+            placeholder="Select Date"
+            defaultValue={value || null}
+            onChange={handleChange}
+            options={[
+                {
+                    label: 'Last 6 Months',
+                    title: 'Last 6 Months',
+                    options: lastSixMonths,
+                },
+                {
+                    label: 'Last 3 Years',
+                    title: 'Last 3 Years',
+                    options: lastThreeYears,
+                },
+            ]}
+            style={{ minWidth: 200 }}
+            allowClear
+        />
     );
 }

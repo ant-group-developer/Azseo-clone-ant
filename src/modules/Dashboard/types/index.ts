@@ -1,4 +1,5 @@
 import { SortOrder } from '@/enums/common';
+import { ReactElement } from 'react';
 
 export interface ListServiceResponse<T> {
     message: string;
@@ -76,21 +77,21 @@ export interface ServiceStatistic {
     service_ratio: number;
     service_rate: string;
     service_initial_rate: string;
-    service_status: number;
+    service_status: number | ReactElement;
     service_min: string;
     service_max: string;
     service_dripfeed: string;
     service_refill: string;
     service_cancel: string;
-    service_level: number;
+    service_level: number | ReactElement;
     service_description_en: string;
     serviceCategories_id: number;
     categories_id: number;
     categories_name: string;
     provider_id: number;
-    provider_name: string;
+    provider_name: string | ReactElement;
     provider_link: string;
-    provider_status: number;
+    provider_status: number | ReactElement;
     provider_createAt: string;
     provider_updatedAt: string | null;
     totalMoney: number;

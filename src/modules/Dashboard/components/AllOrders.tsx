@@ -8,7 +8,11 @@ export default function AllOrders() {
     return (
         <Card variant="outlined" sx={{ borderRadius: '.5rem' }}>
             <Title
-                style={{ padding: '0.5rem 1.5rem', textAlign: 'left' }}
+                style={{
+                    padding: '0.5rem 1.5rem',
+                    textAlign: 'left',
+                    color: 'var(--title-color)',
+                }}
                 level={5}
             >
                 All Orders
@@ -17,50 +21,50 @@ export default function AllOrders() {
             <CardContent sx={{ p: '1.5rem 0' }}>
                 <Box display="flex" justifyContent="space-evenly">
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {data.totalOrderCompleted}
                         </Typography>
-                        <Typography variant="body1">Completed</Typography>
+                        <p>Completed</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {' '}
                             {data.totalOrderPartial}{' '}
                         </Typography>
-                        <Typography variant="body1">Partial</Typography>
+                        <p>Partial</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {' '}
                             {data.totalOrderInProgress}{' '}
                         </Typography>
-                        <Typography variant="body1">In progress</Typography>
+                        <p>In progress</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {' '}
                             {data.totalOrderProcessing}{' '}
                         </Typography>
-                        <Typography variant="body1">Processing</Typography>
+                        <p>Processing</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {' '}
                             {data.totalOrderPending}{' '}
                         </Typography>
-                        <Typography variant="body1">Pending</Typography>
+                        <p>Pending</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             0
                         </Typography>
-                        <Typography variant="body1">Queue</Typography>
+                        <p>Queue</p>
                     </Box>
                     <Box>
-                        <Typography style={textStyle} variant="h5">
+                        <Typography style={textStyle} variant="h6">
                             {data.totalOrderCanceled}
                         </Typography>
-                        <Typography variant="body1">Canceled</Typography>
+                        <p>Canceled</p>
                     </Box>
                 </Box>
             </CardContent>

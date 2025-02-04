@@ -1,15 +1,15 @@
 export enum LOCALE {
-  EN = 'en',
-  VI = 'vi'
+    EN = 'en',
+    VI = 'vi',
 }
 
 export enum STATUS {
-  ACTIVE = 'active',
-  BLOCKED = 'blocked',
-  REMOVED = 'removed'
+    ACTIVE = 'Active',
+    BLOCKED = 'Blocked',
+    REMOVED = 'Removed',
 }
 
 export enum SortOrder {
-  ASC = 'asc',
-  DESC = 'desc'
+    ASC = 'asc',
+    DESC = 'desc',
 }

@@ -1,15 +1,7 @@
 import { UseFilterProps } from '@/hooks/useFilter';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {
-    FormControl,
-    IconButton,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
-    SelectProps,
-} from '@mui/material';
-import { X } from 'lucide-react';
-import { useState } from 'react';
+import { PROVIDER_NAME } from '@/modules/Platform/enums';
+import { SelectProps } from '@mui/material';
+import { Select } from 'antd';
 import { DataFilterParams } from '../types';
 
 type ProviderFilterProps = Pick<
@@ -19,15 +11,10 @@ type ProviderFilterProps = Pick<
     SelectProps<string> & {};
 
 export default function ProviderFilter({
-    value = '',
     onChangeFilter,
-    ...props
+    value,
 }: ProviderFilterProps) {
-    const [hovering, setHovering] = useState<boolean>(false);
-
-    const handleChange = (event: SelectChangeEvent<string>) => {
-        const value = event.target.value as string;
-        console.log('🚀 ~ handleChange ~ value:', value);
+    const handleChange = (value: string) => {
         onChangeFilter({ providerId: Number(value) });
     };
 
@@ -36,41 +23,23 @@ export default function ProviderFilter({
     };
 
     return (
-        <FormControl sx={{ minWidth: 200 }}>
-            <Select
-                value={value}
-                {...props}
-                size="small"
-                sx={{ bgcolor: 'white', height: '32px' }}
-                onChange={handleChange}
-                displayEmpty
-                IconComponent={() => (
-                    <IconButton
-                        onMouseEnter={() => setHovering(true)}
-                        onMouseLeave={() => setHovering(false)}
-                        onClick={clearSelection}
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: 8,
-                            transform: 'translateY(-50%)',
-                            zIndex: 1,
-                        }}
-                    >
-                        {hovering ? <X size={14} /> : <ArrowDropDownIcon />}
-                    </IconButton>
-                )}
-            >
-                <MenuItem value="" disabled>
-                    <span>Select Provider</span>
-                </MenuItem>
-                <MenuItem value={1}>
-                    <span>Gainsmm</span>
-                </MenuItem>
-                <MenuItem value={2}>
-                    <span>Viralsmm</span>
-                </MenuItem>
-            </Select>
-        </FormControl>
+        <Select
+            defaultValue={
+                value == '1'
+                    ? PROVIDER_NAME.GAINSMM
+                    : value == '2'
+                      ? PROVIDER_NAME.VIRALSM
+                      : null
+            }
+            onChange={handleChange}
+            onClear={clearSelection}
+            placeholder="Select Provider"
+            allowClear
+            style={{ minWidth: 200 }}
+            options={[
+                { label: 'Gainsmm', value: 1 },
+                { label: 'Viralsmm', value: 2 },
+            ]}
+        />
     );
 }

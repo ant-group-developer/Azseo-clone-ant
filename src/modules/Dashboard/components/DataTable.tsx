@@ -1,9 +1,11 @@
+import { STATUS } from '@/enums/common';
 import { formatCurrency } from '@/helper';
 import { useFilter } from '@/hooks/useFilter';
 import { ServiceStatistic } from '@/modules/Dashboard/types';
 import { Box } from '@mui/material';
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
 import Title from 'antd/es/typography/Title';
+import Image from 'next/image';
 import { useMemo } from 'react';
 import { columns, defaultFilterParam } from '../constants';
 import { useFetchServiceStatistic } from '../hooks/useFetchServiceStatistic';
@@ -19,33 +21,70 @@ export default function DataTable() {
     const rows: ServiceStatistic[] = useMemo(() => {
         return (
             data?.data?.map((item: ServiceStatistic) => ({
+                key: item.service_id,
                 service_id: item.service_id,
-                service_service: '', // Nếu không có giá trị, hãy để trống hoặc bổ sung từ dữ liệu khác
+                service_service: '',
                 service_name: item.service_name,
-                service_type: '', // Tương tự, cung cấp giá trị nếu có
-                service_ratio: item.service_ratio,
+                service_type: '',
+                service_ratio: Number(`1${item.service_ratio}`),
                 service_rate: item.service_rate,
                 service_initial_rate: item.service_initial_rate,
-                service_status: item.service_status,
-                service_min: '', // Bổ sung giá trị nếu có trong nguồn dữ liệu
+                service_status: (
+                    <Tag
+                        style={{ fontSize: '14px' }}
+                        color={
+                            item.service_status === 1
+                                ? 'green'
+                                : item.service_status === 2
+                                  ? 'red'
+                                  : 'yellow'
+                        }
+                        bordered={false}
+                    >
+                        {item.service_status === 1
+                            ? STATUS.ACTIVE
+                            : item.service_status === 2
+                              ? STATUS.BLOCKED
+                              : STATUS.REMOVED}
+                    </Tag>
+                ),
+                service_min: '',
                 service_max: '',
                 service_dripfeed: '',
                 service_refill: '',
                 service_cancel: '',
-                service_level: item.service_level,
-                service_description_en: '', // Mô tả (nếu không có, hãy để trống)
-                serviceCategories_id: 0, // Nếu không có trong `rawData`, hãy gán giá trị mặc định
+                service_level: (
+                    <span className="flex items-center justify-between gap-1">
+                        {item.service_level}
+                        <Image
+                            src="/star.png"
+                            alt="star"
+                            width={14}
+                            height={14}
+                        />
+                    </span>
+                ),
+                service_description_en: '',
+                serviceCategories_id: 0,
                 categories_id: item.categories_id,
                 categories_name: item.categories_name,
                 provider_id: item.provider_id,
-                provider_name: item.provider_name,
+                provider_name: (
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={item.provider_link}
+                    >
+                        {item.provider_name}
+                    </a>
+                ),
                 provider_link: item.provider_link,
                 provider_status: item.provider_status,
                 provider_createAt: item.provider_createAt,
                 provider_updatedAt: item.provider_updatedAt,
                 totalMoney: item.totalMoney,
                 totalInitialMoney: item.totalInitialMoney,
-                totalQuantity: item.totalQuantity,
+                totalQuantity: item.totalQuantity || 0,
                 totalCountOfServiceUsage: item.totalCountOfServiceUsage,
             })) || []
         );
@@ -84,15 +123,27 @@ export default function DataTable() {
             <div className="border-#ccc rounded-lg border">
                 <div
                     className="flex w-full items-center"
-                    style={{ gap: '2rem', padding: '1rem 2rem' }}
+                    style={{
+                        gap: '2rem',
+                        padding: '1rem 2rem',
+                    }}
                 >
-                    <Title level={5} style={{ margin: 0 }}>
+                    <Title
+                        level={5}
+                        style={{ margin: 0, color: 'var(--title-color)' }}
+                    >
                         Revenue:{formatCurrency(data.totalMoneySum)}
                     </Title>
-                    <Title level={5} style={{ margin: 0 }}>
+                    <Title
+                        level={5}
+                        style={{ margin: 0, color: 'var(--title-color)' }}
+                    >
                         Cost:{formatCurrency(data.totalInitialMoneySum)}
                     </Title>
-                    <Title level={5} style={{ margin: 0 }}>
+                    <Title
+                        level={5}
+                        style={{ margin: 0, color: 'var(--title-color)' }}
+                    >
                         Profit:
                         {formatCurrency(
                             data.totalMoneySum - data.totalInitialMoneySum
@@ -100,20 +151,12 @@ export default function DataTable() {
                     </Title>
                 </div>
                 <Table
-                    // onPaginationModelChange={handleChangePage}
                     loading={isFetching}
                     pagination={{
                         position: ['bottomCenter'],
                     }}
                     dataSource={rows}
                     columns={columns}
-                    // initialState={{
-                    //     pagination: {
-                    //         paginationModel: { page: 0, pageSize: 5 },
-                    //     },
-                    // }}
-                    // pageSizeOptions={[5, 10, 20]}
-                    // sx={{ border: 0, borderRadius: '.5rem' }}
                 />
             </div>
             {/* <Box display={'flex'} justifyContent={'center'} margin={'1rem 0'}>

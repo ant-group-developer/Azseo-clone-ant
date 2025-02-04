@@ -19,13 +19,12 @@ export default function SideBar({ open }: SideBarProps) {
         top: 0,
         bottom: 0,
         scrollbarWidth: 'thin',
-        scrollbarGutter: 'stable',
         borderRight: '1px solid #ccc',
     };
     return (
         <Sider
             style={siderStyle}
-            className="bg-bgSidebar"
+            className="abcccccccccccc"
             theme="light"
             trigger={null}
             collapsible
@@ -81,7 +80,7 @@ export default function SideBar({ open }: SideBarProps) {
                         >
                             Hào
                         </Title>
-                        <p className="text-secondText overflow-hidden text-ellipsis text-nowrap">
+                        <p className="overflow-hidden text-ellipsis text-nowrap text-secondText">
                             Nguyendinhhao2003@gmail.com
                         </p>
                     </div>
